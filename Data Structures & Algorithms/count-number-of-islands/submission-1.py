@@ -1,0 +1,28 @@
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        directions = [[1,0], [-1,0],[0,1],[0, -1]]
+        rows, cols = len(grid), len(grid[0])
+        islands = 0
+        def backtrack(r, c):
+          
+            if r<0 or r>=rows or c < 0 or c>=cols:
+                return 0
+            if grid[r][c] != "1":
+                return
+
+            grid[r][c] = "#"
+
+            found = (
+                backtrack(r + 1, c) or 
+                backtrack(r - 1, c) or 
+                backtrack(r ,c + 1) or 
+                backtrack(r ,c - 1) 
+
+            )
+        
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c] == "1":
+                    islands +=1
+                    backtrack(r, c)
+        return islands
